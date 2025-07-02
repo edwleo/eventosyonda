@@ -1,0 +1,186 @@
+<?php include __DIR__ . '/../layout/header.php'; ?>
+
+<style>
+	h4 {
+		color: dodgerblue
+	}
+
+	i {
+		color: darkcyan;
+		font-size: 0.7em;
+	}
+
+	a {
+		text-decoration: none;
+	}
+</style>
+
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+
+<div class="row">
+	<div class="col-md-6 offset-md-3">
+		<form action="">
+
+			<div class="mb-4" id="step-1">
+				<div>
+					<h4 class="mb-0">PASO 1 <i class="fa-solid fa-circle-check d-none" id="check-1"></i></h4>
+					<p>Por favor seleccione su tipo de documento</p>
+				</div>
+				<div>
+					<select name="tipodoc" id="tipodoc" class="form-select form-select-lg">
+						<option value="">Seleccione</option>
+						<option value="DNI">DNI</option>
+						<option value="CEX">Carnet de extranjería</option>
+					</select>
+				</div>
+				<div class="mt-2 text-end">
+					<a href="#" id="next-1">Continuar</a>
+				</div>
+			</div>
+
+			<div class="mb-4 d-none" id="step-2">
+				<div>
+					<h4 class="mb-0">PASO 2 <i class="fa-solid fa-circle-check d-none" id="check-2"></i></h4>
+					<p>¿Cuál es su número de DNI?</p>
+				</div>
+				<div>
+					<input type="text" class="form-control form-control-lg" id="numdoc" maxlength="8">
+				</div>
+				<div class="mt-2 text-end">
+					<a href="#" id="next-2">Continuar</a>
+				</div>
+			</div>
+
+			<div class="mb-2 d-none" id="step-3">
+				<div>
+					<h4 class="mb-0">PASO 3 <i class="fa-solid fa-circle-check d-none" id="check-3"></i></h4>
+					<p>Verifique si sus datos son correctos</p>
+				</div>
+				<div class="mb-2">
+					<input type="text" class="form-control form-control-lg" id="inversionista" value="FRANCIA MINAYA, Jhon Edward"
+						disabled>
+				</div>
+				<div>
+					<input type="text" class="form-control form-control-lg" id="telefono" value="956834915">
+				</div>
+				<div class="mt-2 text-end">
+					<a href="#" id="call-asesor">Comunicarme con un asesor</a> -
+					<a href="#" id="next-3">Actualizar y continuar</a>
+				</div>
+			</div>
+
+			<div class="mb-4 d-none" id="step-4">
+				<div>
+					<h4 class="mb-0">PASO 4 <i class="fa-solid fa-circle-check d-none" id="check-4"></i></h4>
+					<p>¿Llevará un acompañante?</p>
+				</div>
+				<div>
+					<select name="acompanante" id="acompanante" class="form-select form-select-lg">
+						<option value="N">No, asistiré al evento solo</option>
+						<option value="S">Iré con un acompañante</option>
+					</select>
+				</div>
+				<div class="mt-2 text-end">
+					<a href="#" id="next-4">Continuar</a>
+				</div>
+			</div>
+
+			<div class="mb-4 d-none" id="step-5">
+				<div>
+					<h4 class="mb-0">PASO 5 <i class="fa-solid fa-circle-check d-none" id="check-5"></i></h4>
+					<p>Validación. Por favor ingrese el código enviado al número de teléfono indicado</p>
+				</div>
+				<div>
+					<input type="text" class="form-control form-control-lg" id="codigo">
+				</div>
+				<div class="mt-2 text-end">
+					<a href="#" id="next-5">Continuar</a>
+				</div>
+			</div>
+
+		</form>
+
+		<div class="text-center mt-2 d-none" id="step-6">
+			<hr>
+			<strong>Guarde el código QR - verificará su ingreso al evento</strong>
+			<a href="/assets/images/qr.png" download="QR-evento-yonda.png">
+				<img src="/assets/images/qr.png" alt="" style="cursor: pointer;">
+			</a>
+		</div>
+
+
+	</div>
+</div> <!-- ./row -->
+
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		function $(object) { return document.querySelector(object) }
+
+		$("#next-1").addEventListener("click", (event) => {
+			event.preventDefault()
+			if ($("#tipodoc").value == "") {
+				alert("Debe indicar el tipo de documento")
+				$("#tipodoc").focus()
+			} else {
+				$("#tipodoc").setAttribute("disabled", true)
+				$("#next-1").classList.add("d-none");
+				$("#step-2").classList.remove("d-none")
+			}
+		})
+
+		$("#next-2").addEventListener("click", (event) => {
+			event.preventDefault()
+			const numdoc = $("#numdoc").value
+			if (numdoc.length < 8) {
+				alert("Escriba el número de DNI")
+				$("#numdoc").focus()
+			} else {
+				$("#numdoc").setAttribute("disabled", true)
+				$("#next-2").classList.add("d-none");
+				$("#step-3").classList.remove("d-none")
+			}
+		})
+
+		$("#next-3").addEventListener("click", (event) => {
+			event.preventDefault()
+			const numdoc = $("#telefono").value
+			if (telefono.length < 9) {
+				alert("Escriba un número de telélfono válido")
+				$("#telefono").focus()
+			} else {
+				$("#telefono").setAttribute("disabled", true)
+				$("#call-asesor").classList.add("d-none");
+				$("#next-3").classList.add("d-none");
+				$("#step-4").classList.remove("d-none")
+			}
+		})
+
+		$("#next-4").addEventListener("click", (event) => {
+			event.preventDefault()
+			$("#acompanante").setAttribute("disabled", true)
+			$("#next-4").classList.add("d-none");
+			$("#step-5").classList.remove("d-none")
+		})
+
+		$("#next-5").addEventListener("click", (event) => {
+			event.preventDefault()
+			$("#codigo").setAttribute("disabled", true)
+			$("#next-5").classList.add("d-none");
+			$("#step-6").classList.remove("d-none");
+			showConfetti()
+		})
+
+		function showConfetti() {
+			confetti({
+				particleCount: 100,
+				spread: 70,
+				origin: { y: 0.6 },
+			});
+		}
+
+	})
+</script>
+
+<?php include __DIR__ . '/../layout/footer.php'; ?>
