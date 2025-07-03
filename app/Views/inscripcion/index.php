@@ -27,7 +27,10 @@
 					<h4 class="mb-0">PASO 1 <i class="fa-solid fa-circle-check d-none" id="check-1"></i></h4>
 					<p>Por favor seleccione su tipo de documento</p>
 				</div>
-				<div>
+				<div class="input-group">
+					<span class="input-group-text" id="basic-addon1">
+						<i class="fa-solid fa-address-card" style="font-size: 1.25em;"></i>
+					</span>
 					<select name="tipodoc" id="tipodoc" class="form-select form-select-lg">
 						<option value="">Seleccione</option>
 						<option value="DNI">DNI</option>
@@ -44,7 +47,10 @@
 					<h4 class="mb-0">PASO 2 <i class="fa-solid fa-circle-check d-none" id="check-2"></i></h4>
 					<p>¿Cuál es su número de DNI?</p>
 				</div>
-				<div>
+				<div class="input-group">
+					<span class="input-group-text" id="basic-addon1">
+						<i class="fa-solid fa-address-card" style="font-size: 1.25em;"></i>
+					</span>
 					<input type="text" class="form-control form-control-lg" id="numdoc" maxlength="8">
 				</div>
 				<div class="mt-2 text-end">
@@ -57,11 +63,16 @@
 					<h4 class="mb-0">PASO 3 <i class="fa-solid fa-circle-check d-none" id="check-3"></i></h4>
 					<p>Verifique si sus datos son correctos</p>
 				</div>
-				<div class="mb-2">
-					<input type="text" class="form-control form-control-lg" id="inversionista" value="FRANCIA MINAYA, Jhon Edward"
-						disabled>
+				<div class="input-group mb-2">
+					<span class="input-group-text" id="basic-addon1">
+						<i class="fa-solid fa-user-tie" style="font-size: 1.25em;"></i>
+					</span>
+					<input type="text" class="form-control form-control-lg" id="inversionista" value="FRANCIA MINAYA, Jhon Edward" disabled>
 				</div>
-				<div>
+				<div class="input-group">
+					<span class="input-group-text" id="basic-addon1">
+						<i class="fa-solid fa-mobile-screen-button" style="font-size: 1.25em;"></i>
+					</span>
 					<input type="text" class="form-control form-control-lg" id="telefono" value="956834915">
 				</div>
 				<div class="mt-2 text-end">
@@ -75,7 +86,10 @@
 					<h4 class="mb-0">PASO 4 <i class="fa-solid fa-circle-check d-none" id="check-4"></i></h4>
 					<p>¿Llevará un acompañante?</p>
 				</div>
-				<div>
+				<div class="input-group">
+					<span class="input-group-text" id="basic-addon1">
+						<i class="fa-solid fa-user-plus" style="font-size: 1em;"></i>
+					</span>
 					<select name="acompanante" id="acompanante" class="form-select form-select-lg">
 						<option value="N">No, asistiré al evento solo</option>
 						<option value="S">Iré con un acompañante</option>
@@ -91,11 +105,14 @@
 					<h4 class="mb-0">PASO 5 <i class="fa-solid fa-circle-check d-none" id="check-5"></i></h4>
 					<p>Validación. Por favor ingrese el código enviado al número de teléfono indicado</p>
 				</div>
-				<div>
+				<div class="input-group">
+					<span class="input-group-text" id="basic-addon1">
+						<i class="fa-solid fa-key" style="font-size: 1.25em;"></i>
+					</span>
 					<input type="text" class="form-control form-control-lg" id="codigo">
 				</div>
 				<div class="mt-2 text-end">
-					<a href="#" id="next-5">Continuar</a>
+					<a href="#bajo-qr" id="next-5">Continuar</a>
 				</div>
 			</div>
 
@@ -109,10 +126,10 @@
 			</a>
 		</div>
 
-
 	</div>
 </div> <!-- ./row -->
 
+<div id="bajo-qr"></div>
 
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
@@ -165,7 +182,7 @@
 		})
 
 		$("#next-5").addEventListener("click", (event) => {
-			event.preventDefault()
+			//event.preventDefault()
 			$("#codigo").setAttribute("disabled", true)
 			$("#next-5").classList.add("d-none");
 			$("#step-6").classList.remove("d-none");
@@ -174,9 +191,16 @@
 
 		function showConfetti() {
 			confetti({
-				particleCount: 100,
+				particleCount: 150,
 				spread: 70,
 				origin: { y: 0.6 },
+				animation: { speed: 100},
+				life: {
+					duration: {
+						sync: true,
+						value: 5
+					}
+				}
 			});
 		}
 
