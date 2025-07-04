@@ -25,9 +25,9 @@
 		</div>
 	</div>
 	<div class="col-md-6 offset-md-3">
-		<form action="">
+		<form action="" autocomplete="off">
 
-			<div class="mb-4" id="step-1">
+			<div class="mb-5" id="step-1">
 				<div>
 					<h4 class="mb-0">PASO 1 <i class="fa-solid fa-circle-check d-none" id="check-1"></i></h4>
 					<p>Por favor seleccione su tipo de documento</p>
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 
-			<div class="mb-4 d-none" id="step-2">
+			<div class="mb-5 d-none" id="step-2">
 				<div>
 					<h4 class="mb-0">PASO 2 <i class="fa-solid fa-circle-check d-none" id="check-2"></i></h4>
 					<p>¿Cuál es su número de DNI?</p>
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 
-			<div class="mb-2 d-none" id="step-3">
+			<div class="mb-5 d-none" id="step-3">
 				<div>
 					<h4 class="mb-0">PASO 3 <i class="fa-solid fa-circle-check d-none" id="check-3"></i></h4>
 					<p>Verifique si sus datos son correctos</p>
@@ -72,13 +72,13 @@
 					<span class="input-group-text" id="basic-addon1">
 						<i class="fa-solid fa-user-tie" style="font-size: 1.25em;"></i>
 					</span>
-					<input type="text" class="form-control form-control-lg" id="inversionista" value="FRANCIA MINAYA, Jhon Edward" disabled>
+					<input type="text" class="form-control form-control-lg" id="inversionista" value="" disabled>
 				</div>
 				<div class="input-group">
 					<span class="input-group-text" id="basic-addon1">
 						<i class="fa-solid fa-mobile-screen-button" style="font-size: 1.25em;"></i>
 					</span>
-					<input type="text" class="form-control form-control-lg" id="telefono" value="956834915">
+					<input type="tel" class="form-control form-control-lg" id="telefono" maxlength="9">
 				</div>
 				<div class="mt-2 text-end">
 					<span id="nota-telefono">El teléfono es obligatorio para validación</span> -
@@ -86,7 +86,7 @@
 				</div>
 			</div>
 
-			<div class="mb-4 d-none" id="step-4">
+			<div class="mb-5 d-none" id="step-4">
 				<div>
 					<h4 class="mb-0">PASO 4 <i class="fa-solid fa-circle-check d-none" id="check-4"></i></h4>
 					<p>¿Llevará un acompañante?</p>
@@ -105,7 +105,7 @@
 				</div>
 			</div>
 
-			<div class="mb-4 d-none" id="step-5">
+			<div class="mb-5 d-none" id="step-5">
 				<div>
 					<h4 class="mb-0">PASO 5 <i class="fa-solid fa-circle-check d-none" id="check-5"></i></h4>
 					<p>Validación. Por favor ingrese el código enviado al número de teléfono indicado</p>
@@ -138,6 +138,8 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
+
+		let id = -1
 		function $(object) { return document.querySelector(object) }
 
 		$("#next-1").addEventListener("click", (event) => {
@@ -150,6 +152,7 @@
 				$("#check-1").classList.remove("d-none");
 				$("#next-1").classList.add("d-none");
 				$("#step-2").classList.remove("d-none")
+				$("#numdoc").focus()
 			}
 		})
 
@@ -169,6 +172,7 @@
 							$("#check-2").classList.remove("d-none");
 							$("#next-2").classList.add("d-none");
 							$("#step-3").classList.remove("d-none")
+							$("#telefono").focus()
 						}else{
 							$("#numdoc").focus()
 							alert('No encontramos al inversionista')
@@ -177,6 +181,20 @@
 
 			}
 		})
+
+		function actualizaTelefono(){
+			const telefono = $("#telefono").value
+			return fetch(`/api/persona/actualizartelefono/${id}/${telefono}`, { method: 'GET' })
+				.then(response => response.json())
+				.then(data => {
+					console.log(data)
+					return data.success
+				})
+				.catch(err => {
+					console.log(err)
+					return false
+				})
+		}
 
 		function existeInversionista(){
 			const tipodoc = $("#tipodoc").value
@@ -188,9 +206,11 @@
 					console.log(data)
 					encontrado = data.success
 					if (encontrado){
+						id = parseInt(data.persona.idpersona)
 						$("#inversionista").value = data.persona.apellidos + ", " + data.persona.nombres
 						$("#telefono").value = data.persona.telefono
 					}else{
+						id = -1
 						$("#inversionista").value = ''
 						$("#telefono").value = ''
 					}
@@ -204,11 +224,15 @@
 
 		$("#next-3").addEventListener("click", (event) => {
 			event.preventDefault()
-			const numdoc = $("#telefono").value
+			const telefono = $("#telefono").value
 			if (telefono.length < 9) {
-				alert("Escriba un número de telélfono válido")
+				alert("Escriba un número de teléfono válido")
 				$("#telefono").focus()
 			} else {
+				actualizaTelefono()
+					.then(condicion => {
+						console.log(condicion)
+					})
 				$("#telefono").setAttribute("disabled", true)
 				$("#check-3").classList.remove("d-none");
 				$("#nota-telefono").classList.add("d-none");

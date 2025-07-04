@@ -821,3 +821,4 @@ INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionis
 
 
 SELECT * FROM personas;
+SELECT idpersona, apellidos, nombres, telefono FROM personas WHERE inversionista = 'S' AND numdoc = '';

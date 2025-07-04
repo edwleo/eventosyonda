@@ -39,4 +39,25 @@ class Persona
     }
   }
 
+  /**
+   * Actualiza el número de teléfono desde el formulario de inscripción
+   * @param int $idpersona
+   * @param string $telefono
+   * @return int
+   */
+  public function updateTelefono(int $idpersona, string $telefono):int{
+    $query = "UPDATE personas SET telefono = :telefono WHERE idpersona = :idpersona";
+
+    try{
+      $stmt = $this->db->prepare($query);
+      $stmt->bindParam(':idpersona', $idpersona, PDO::PARAM_INT);
+      $stmt->bindParam(':telefono', $telefono, PDO::PARAM_STR);
+      $stmt->execute();
+
+      return $stmt->rowCount();
+    }catch(Exception $e){
+      return -1;
+    }
+  }
+
 }
