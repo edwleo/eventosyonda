@@ -22,6 +22,7 @@ $router = new Router();
 // Rutas de productos (DEMO)
 require_once APP_ROOT . '/app/Router/Home.router.php';
 require_once APP_ROOT . '/app/Router/Inscripcion.router.php';
+require_once APP_ROOT . '/app/Router/Persona.router.php';
 
 // Un controlador básico para la página de inicio
 class HomeController extends App\Core\Controller

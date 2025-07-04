@@ -19,6 +19,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 
 <div class="row">
+	<div class="col-md-6 offset-md-3 mb-3">
+		<div class="alert alert-info">
+			Estimado inversionista, confirme su participación en <strong>5 pasos.</strong>
+		</div>
+	</div>
 	<div class="col-md-6 offset-md-3">
 		<form action="">
 
@@ -76,7 +81,7 @@
 					<input type="text" class="form-control form-control-lg" id="telefono" value="956834915">
 				</div>
 				<div class="mt-2 text-end">
-					<a href="#" id="call-asesor">Comunicarme con un asesor</a> -
+					<span id="nota-telefono">El teléfono es obligatorio para validación</span> -
 					<a href="#" id="next-3">Actualizar y continuar</a>
 				</div>
 			</div>
@@ -142,23 +147,60 @@
 				$("#tipodoc").focus()
 			} else {
 				$("#tipodoc").setAttribute("disabled", true)
+				$("#check-1").classList.remove("d-none");
 				$("#next-1").classList.add("d-none");
 				$("#step-2").classList.remove("d-none")
 			}
 		})
 
-		$("#next-2").addEventListener("click", (event) => {
+		//Aquí se buscará al inversionista por su documento
+		$("#next-2").addEventListener("click", async (event) => {
 			event.preventDefault()
 			const numdoc = $("#numdoc").value
 			if (numdoc.length < 8) {
 				alert("Escriba el número de DNI")
 				$("#numdoc").focus()
 			} else {
-				$("#numdoc").setAttribute("disabled", true)
-				$("#next-2").classList.add("d-none");
-				$("#step-3").classList.remove("d-none")
+				
+				existeInversionista()
+					.then(existe => {
+						if (existe){
+							$("#numdoc").setAttribute("disabled", true)
+							$("#check-2").classList.remove("d-none");
+							$("#next-2").classList.add("d-none");
+							$("#step-3").classList.remove("d-none")
+						}else{
+							$("#numdoc").focus()
+							alert('No encontramos al inversionista')
+						}
+					})
+
 			}
 		})
+
+		function existeInversionista(){
+			const tipodoc = $("#tipodoc").value
+			const numdoc = $("#numdoc").value
+
+			return fetch(`/api/persona/buscardocumento/${tipodoc}/${numdoc}`, { method: 'GET' })
+				.then(response => response.json())
+				.then(data => {
+					console.log(data)
+					encontrado = data.success
+					if (encontrado){
+						$("#inversionista").value = data.persona.apellidos + ", " + data.persona.nombres
+						$("#telefono").value = data.persona.telefono
+					}else{
+						$("#inversionista").value = ''
+						$("#telefono").value = ''
+					}
+					return encontrado
+				})
+				.catch(err => {
+					console.error(err)
+					return false
+				})
+		}
 
 		$("#next-3").addEventListener("click", (event) => {
 			event.preventDefault()
@@ -168,7 +210,8 @@
 				$("#telefono").focus()
 			} else {
 				$("#telefono").setAttribute("disabled", true)
-				$("#call-asesor").classList.add("d-none");
+				$("#check-3").classList.remove("d-none");
+				$("#nota-telefono").classList.add("d-none");
 				$("#next-3").classList.add("d-none");
 				$("#step-4").classList.remove("d-none")
 			}
@@ -177,6 +220,7 @@
 		$("#next-4").addEventListener("click", (event) => {
 			event.preventDefault()
 			$("#acompanante").setAttribute("disabled", true)
+			$("#check-4").classList.remove("d-none");
 			$("#next-4").classList.add("d-none");
 			$("#step-5").classList.remove("d-none")
 		})
@@ -184,6 +228,7 @@
 		$("#next-5").addEventListener("click", (event) => {
 			//event.preventDefault()
 			$("#codigo").setAttribute("disabled", true)
+			$("#check-5").classList.remove("d-none");
 			$("#next-5").classList.add("d-none");
 			$("#step-6").classList.remove("d-none");
 			showConfetti()
