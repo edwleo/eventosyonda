@@ -7,9 +7,8 @@ class ServiceSMS
 {
   private $token = "ODc2NTc4NTYyNjo1UUcwVko2OUlaRDE=";
   private $autorization = "Authorization: Bearer ";
-  private $fields_string = "";
-
-  private $smstype = "1"; // 0: remitente largo, 1: remitente corto
+  
+  private $smstype = "1"; // 0: remitente largo, 1: remitente corto (varía el costo del servicio)
   private $shorturl = "0"; // acortador URL
 
   private $url = "";
@@ -22,8 +21,16 @@ class ServiceSMS
     $this->url = 'https://api3.gamanet.pe/token/smssend';
   }
 
-  public function sendSMS(string $smsnumber, string $smstext)
+  /**
+   * Envía un mensaje de texto al número consignado, retorna un valor lógico cuando se concreta la operación
+   * @param string $smsnumber
+   * @param string $smstext
+   * @return void
+   */
+  public function sendSMS(string $smsnumber, string $smstext):bool
   {
+    $fields_string = '';
+
     $fields = array(
       'smsnumber' => urlencode($smsnumber),
       'smstext' => urlencode($smstext),
@@ -54,16 +61,10 @@ class ServiceSMS
 
     //cerramos la conexion
     curl_close($ch);
+    $resultFormat = json_decode($result, true);
+    $error = intval($resultFormat['messages'][0]['error']);
 
-    //Resultado
-    $array = json_decode($result, true);
-
-    echo "error:" . $array["message"];
-    echo "uniqueid:" . $array["uniqueid"];
+    return $error == 0 ? true: false;
   }
 
 }
-
-
-
-

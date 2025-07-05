@@ -25,9 +25,11 @@ CREATE TABLE personas
 	numdoc			VARCHAR(12)		NOT NULL,
 	telefono			VARCHAR(12)		NULL,
 	email				VARCHAR(150)	NULL,
+	token				CHAR(5)			NULL,
 	inversionista	ENUM('S', 'N') NOT NULL,
 	CONSTRAINT uk_numdoc_per UNIQUE (tipodoc, numdoc)
 )ENGINE = INNODB;
+
 
 -- INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
 
