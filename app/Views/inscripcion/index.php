@@ -39,11 +39,11 @@
 					<select name="tipodoc" id="tipodoc" class="form-select form-select-lg">
 						<option value="">Seleccione</option>
 						<option value="DNI">DNI</option>
-						<option value="CEX">Carnet de extranjería</option>
+						<option value="RUC">RUC</option>
 					</select>
 				</div>
 				<div class="mt-2 text-end">
-					<a href="#" id="next-1">Continuar</a>
+					<a href="#" id="next-1" class="btn btn-sm btn-outline-success">Continuar <i class="fa-solid fa-chevron-right"></i></a>
 				</div>
 			</div>
 
@@ -59,7 +59,7 @@
 					<input type="text" class="form-control form-control-lg" id="numdoc" maxlength="8">
 				</div>
 				<div class="mt-2 text-end">
-					<a href="#" id="next-2">Continuar</a>
+					<a href="#" id="next-2" class="btn btn-sm btn-outline-success">Continuar <i class="fa-solid fa-chevron-right"></i></a>
 				</div>
 			</div>
 
@@ -81,8 +81,8 @@
 					<input type="tel" class="form-control form-control-lg" id="telefono" maxlength="9">
 				</div>
 				<div class="mt-2 text-end">
-					<span id="nota-telefono">El teléfono es obligatorio para validación</span> -
-					<a href="#" id="next-3">Actualizar y continuar</a>
+					<span id="nota-telefono" class="fst-italic">Teléfono obligatorio para validación</span>
+					<a href="#" id="next-3" class="btn btn-sm btn-outline-success">Actualizar y continuar <i class="fa-solid fa-chevron-right"></i></a>
 				</div>
 			</div>
 
@@ -101,14 +101,14 @@
 					</select>
 				</div>
 				<div class="mt-2 text-end">
-					<a href="#" id="next-4">Continuar</a>
+					<a href="#" id="next-4" class="btn btn-sm btn-outline-success">Continuar <i class="fa-solid fa-chevron-right"></i></a>
 				</div>
 			</div>
 
 			<div class="mb-5 d-none" id="step-5">
 				<div>
 					<h4 class="mb-0">PASO 5 <i class="fa-solid fa-circle-check d-none" id="check-5"></i></h4>
-					<p>Validación. Por favor ingrese el código enviado al número de teléfono indicado</p>
+					<p>Por favor ingrese el código enviado al número de teléfono indicado</p>
 				</div>
 				<div class="input-group">
 					<span class="input-group-text" id="basic-addon1">
@@ -117,7 +117,7 @@
 					<input type="tel" class="form-control form-control-lg" id="codigo" maxlength="5">
 				</div>
 				<div class="mt-2 text-end">
-					<a href="#bajo-qr" id="next-5">Continuar</a>
+					<a href="#" id="next-5" class="btn btn-sm btn-outline-success">Finalizar <i class="fa-solid fa-chevron-right"></i></a>
 				</div>
 			</div>
 
@@ -125,9 +125,10 @@
 
 		<div class="text-center mt-2 d-none" id="step-6">
 			<hr>
-			<strong>Guarde el código QR - verificará su ingreso al evento</strong>
+			<h3>Pulse un clic sobre el QR para guardarlo</h3>
+			<h5>Debe ser presentado el día del evento</h5>
 			<a href="/assets/images/qr.png" download="QR-evento-yonda.png">
-				<img src="/assets/images/qr.png" alt="" style="cursor: pointer;">
+				<img src="/assets/images/qr.png" alt="QR entrada" class="img-fluid" style="cursor: pointer;">
 			</a>
 		</div>
 
@@ -164,7 +165,6 @@
 				showToast('Escriba el número de documento', 'INFO', 2000)
 				$("#numdoc").focus()
 			} else {
-
 				existeInversionista()
 					.then(existe => {
 						if (existe) {
@@ -187,11 +187,42 @@
 			return fetch(`/api/persona/actualizartelefono/${id}/${telefono}`, { method: 'GET' })
 				.then(response => response.json())
 				.then(data => {
-					console.log(data)
 					return data.success
 				})
 				.catch(err => {
 					console.log(err)
+					return false
+				})
+		}
+
+		function validarToken(){
+			const codigo = $("#codigo").value
+			return fetch(`/api/persona/validartoken/${id}/${codigo}`, { method: 'GET' })
+				.then(response => response.json())
+				.then(data => {
+					return data.success
+				})
+				.catch(err => {
+					console.error(err)
+					return false
+				})
+		}
+
+		function generaEnviaToken() {
+			const telefono = $("#telefono").value
+
+			return fetch(`/api/persona/token/${id}/${telefono}`, { method: 'GET' })
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						showToast(data.message, 'SUCCESS', 2000)
+					} else {
+						showToast(data.message, 'ERROR', 2500)
+					}
+					return data.success
+				})
+				.catch(err => {
+					console.error(err)
 					return false
 				})
 		}
@@ -203,7 +234,6 @@
 			return fetch(`/api/persona/buscardocumento/${tipodoc}/${numdoc}`, { method: 'GET' })
 				.then(response => response.json())
 				.then(data => {
-					console.log(data)
 					encontrado = data.success
 					if (encontrado) {
 						id = parseInt(data.persona.idpersona)
@@ -230,25 +260,38 @@
 				$("#telefono").focus()
 			} else {
 				actualizaTelefono()
-					.then(condicion => {
-						console.log(condicion)
+					.then(actualizado => {
+						if (actualizado) {
+							$("#telefono").setAttribute("disabled", true)
+							$("#check-3").classList.remove("d-none");
+							$("#nota-telefono").classList.add("d-none");
+							$("#next-3").classList.add("d-none");
+							$("#step-4").classList.remove("d-none")
+							irBajando()
+						} else {
+							showToast('No se pudo confirmar el teléfono', 'ERROR', 2000)
+							$("#telefono").focus()
+						}
 					})
-				$("#telefono").setAttribute("disabled", true)
-				$("#check-3").classList.remove("d-none");
-				$("#nota-telefono").classList.add("d-none");
-				$("#next-3").classList.add("d-none");
-				$("#step-4").classList.remove("d-none")
-				irBajando()
 			}
 		})
 
 		$("#next-4").addEventListener("click", (event) => {
 			event.preventDefault()
-			$("#acompanante").setAttribute("disabled", true)
-			$("#check-4").classList.remove("d-none");
-			$("#next-4").classList.add("d-none");
-			$("#step-5").classList.remove("d-none")
 			irBajando()
+			generaEnviaToken()
+				.then(generado => {
+					if (generado) {
+						$("#acompanante").setAttribute("disabled", true)
+						$("#check-4").classList.remove("d-none");
+						$("#next-4").classList.add("d-none");
+						$("#step-5").classList.remove("d-none")
+						$("#codigo").focus()
+					}else{
+						//Debemos retroceder algunos pasos
+
+					}
+				})
 		})
 
 		function irBajando() {
@@ -266,15 +309,24 @@
 			const codigo = $("#codigo").value
 
 			if (codigo.length == 5) {
-				//haría falta validar
-				$("#codigo").setAttribute("disabled", true)
-				$("#check-5").classList.remove("d-none");
-				$("#next-5").classList.add("d-none");
-				$("#step-6").classList.remove("d-none");
-				showConfetti()
-				irBajando()
+				validarToken()
+					.then(aceptado => {
+						if (aceptado){
+							$("#codigo").setAttribute("disabled", true)
+							$("#check-5").classList.remove("d-none");
+							$("#next-5").classList.add("d-none");
+							$("#step-6").classList.remove("d-none");
+
+							//Generar y mostrar QR
+							showConfetti()
+							irBajando()
+						}else{
+							showToast('Token incorrecto, verifique sus SMS', 'ERROR', 2500)
+						}
+					})
+				
 			} else {
-				showToast('Verifique el código SMS en su teléfono', 'INFO', 2500)
+				showToast('Ingrese el código SMS enviado a su teléfono', 'INFO', 2500)
 				$("#codigo").focus()
 			}
 

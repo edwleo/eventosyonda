@@ -27,9 +27,10 @@ CREATE TABLE personas
 	email				VARCHAR(150)	NULL,
 	token				CHAR(5)			NULL,
 	inversionista	ENUM('S', 'N') NOT NULL,
+	creado			DATETIME 		NOT NULL DEFAULT NOW(),
+	modificado		DATETIME 		NULL,
 	CONSTRAINT uk_numdoc_per UNIQUE (tipodoc, numdoc)
 )ENGINE = INNODB;
-
 
 -- INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
 
@@ -823,4 +824,6 @@ INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionis
 
 
 SELECT * FROM personas ORDER BY idpersona DESC;
+SELECT * FROM personas WHERE idpersona = 748 AND token = '35845';
+
 SELECT idpersona, apellidos, nombres, telefono FROM personas WHERE inversionista = 'S' AND numdoc = '';
