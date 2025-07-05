@@ -820,5 +820,5 @@ INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionis
 ('SORIANO ROBLES', 'MARIA ALICIA CAROLINA ', 'DNI', '41136283', '', 'S');
 
 
-SELECT * FROM personas;
+SELECT * FROM personas ORDER BY idpersona DESC;
 SELECT idpersona, apellidos, nombres, telefono FROM personas WHERE inversionista = 'S' AND numdoc = '';

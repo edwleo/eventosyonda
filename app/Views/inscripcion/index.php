@@ -114,7 +114,7 @@
 					<span class="input-group-text" id="basic-addon1">
 						<i class="fa-solid fa-key" style="font-size: 1.25em;"></i>
 					</span>
-					<input type="text" class="form-control form-control-lg" id="codigo">
+					<input type="tel" class="form-control form-control-lg" id="codigo" maxlength="5">
 				</div>
 				<div class="mt-2 text-end">
 					<a href="#bajo-qr" id="next-5">Continuar</a>
@@ -145,7 +145,7 @@
 		$("#next-1").addEventListener("click", (event) => {
 			event.preventDefault()
 			if ($("#tipodoc").value == "") {
-				alert("Debe indicar el tipo de documento")
+				showToast('Debe indicar el tipo de documento', 'INFO', 2000)
 				$("#tipodoc").focus()
 			} else {
 				$("#tipodoc").setAttribute("disabled", true)
@@ -161,28 +161,28 @@
 			event.preventDefault()
 			const numdoc = $("#numdoc").value
 			if (numdoc.length < 8) {
-				alert("Escriba el número de DNI")
+				showToast('Escriba el número de documento', 'INFO', 2000)
 				$("#numdoc").focus()
 			} else {
-				
+
 				existeInversionista()
 					.then(existe => {
-						if (existe){
+						if (existe) {
 							$("#numdoc").setAttribute("disabled", true)
 							$("#check-2").classList.remove("d-none");
 							$("#next-2").classList.add("d-none");
 							$("#step-3").classList.remove("d-none")
 							$("#telefono").focus()
-						}else{
+						} else {
 							$("#numdoc").focus()
-							alert('No encontramos al inversionista')
+							showToast('No encontramos al inversionista', 'INFO', 2000)
 						}
 					})
 
 			}
 		})
 
-		function actualizaTelefono(){
+		function actualizaTelefono() {
 			const telefono = $("#telefono").value
 			return fetch(`/api/persona/actualizartelefono/${id}/${telefono}`, { method: 'GET' })
 				.then(response => response.json())
@@ -196,7 +196,7 @@
 				})
 		}
 
-		function existeInversionista(){
+		function existeInversionista() {
 			const tipodoc = $("#tipodoc").value
 			const numdoc = $("#numdoc").value
 
@@ -205,11 +205,11 @@
 				.then(data => {
 					console.log(data)
 					encontrado = data.success
-					if (encontrado){
+					if (encontrado) {
 						id = parseInt(data.persona.idpersona)
 						$("#inversionista").value = data.persona.apellidos + ", " + data.persona.nombres
 						$("#telefono").value = data.persona.telefono
-					}else{
+					} else {
 						id = -1
 						$("#inversionista").value = ''
 						$("#telefono").value = ''
@@ -226,7 +226,7 @@
 			event.preventDefault()
 			const telefono = $("#telefono").value
 			if (telefono.length < 9) {
-				alert("Escriba un número de teléfono válido")
+				showToast('Escriba un número de teléfono válido', 'INFO', 2500)
 				$("#telefono").focus()
 			} else {
 				actualizaTelefono()
@@ -238,6 +238,7 @@
 				$("#nota-telefono").classList.add("d-none");
 				$("#next-3").classList.add("d-none");
 				$("#step-4").classList.remove("d-none")
+				irBajando()
 			}
 		})
 
@@ -247,15 +248,36 @@
 			$("#check-4").classList.remove("d-none");
 			$("#next-4").classList.add("d-none");
 			$("#step-5").classList.remove("d-none")
+			irBajando()
 		})
 
+		function irBajando() {
+			const alturaDocumento = document.body.scrollHeight
+			window.scroll({
+				left: 0,
+				top: alturaDocumento,
+				behavior: 'smooth'
+			})
+			//window.scroll(0, alturaDocumento)
+		}
+
 		$("#next-5").addEventListener("click", (event) => {
-			//event.preventDefault()
-			$("#codigo").setAttribute("disabled", true)
-			$("#check-5").classList.remove("d-none");
-			$("#next-5").classList.add("d-none");
-			$("#step-6").classList.remove("d-none");
-			showConfetti()
+			event.preventDefault()
+			const codigo = $("#codigo").value
+
+			if (codigo.length == 5) {
+				//haría falta validar
+				$("#codigo").setAttribute("disabled", true)
+				$("#check-5").classList.remove("d-none");
+				$("#next-5").classList.add("d-none");
+				$("#step-6").classList.remove("d-none");
+				showConfetti()
+				irBajando()
+			} else {
+				showToast('Verifique el código SMS en su teléfono', 'INFO', 2500)
+				$("#codigo").focus()
+			}
+
 		})
 
 		function showConfetti() {
@@ -263,7 +285,7 @@
 				particleCount: 150,
 				spread: 70,
 				origin: { y: 0.6 },
-				animation: { speed: 100},
+				animation: { speed: 100 },
 				life: {
 					duration: {
 						sync: true,
