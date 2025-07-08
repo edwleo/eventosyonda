@@ -182,6 +182,19 @@
 			}
 		})
 
+		function registrarParticipante(){
+			const acompanante = $("#acompanante").value
+			return fetch(`/api/participante/inversionista/add/1/${id}/INV/${acompanante}`, { method: 'GET' })
+				.then(response => response.json())
+				.then(data => {
+					return data.success
+				})
+				.catch(err => {
+					console.log(err)
+					return false
+				})
+		}
+
 		function actualizaTelefono() {
 			const telefono = $("#telefono").value
 			return fetch(`/api/persona/actualizartelefono/${id}/${telefono}`, { method: 'GET' })
@@ -304,6 +317,7 @@
 			//window.scroll(0, alturaDocumento)
 		}
 
+		//Último paso
 		$("#next-5").addEventListener("click", (event) => {
 			event.preventDefault()
 			const codigo = $("#codigo").value
@@ -312,14 +326,22 @@
 				validarToken()
 					.then(aceptado => {
 						if (aceptado){
-							$("#codigo").setAttribute("disabled", true)
-							$("#check-5").classList.remove("d-none");
-							$("#next-5").classList.add("d-none");
-							$("#step-6").classList.remove("d-none");
 
-							//Generar y mostrar QR
-							showConfetti()
-							irBajando()
+							//Ahora vamos a registrar al participante
+							registrarParticipante()
+								.then(registrado => {
+									if (registrado){
+										$("#codigo").setAttribute("disabled", true)
+										$("#check-5").classList.remove("d-none");
+										$("#next-5").classList.add("d-none");
+										$("#step-6").classList.remove("d-none");
+			
+										//Generar y mostrar QR
+										irBajando()
+										showConfetti()
+									}
+								})
+
 						}else{
 							showToast('Token incorrecto, verifique sus SMS', 'ERROR', 2500)
 						}
