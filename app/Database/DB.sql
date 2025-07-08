@@ -92,9 +92,6 @@ INSERT INTO eventos (nombre, descripcion, fechahora, direccion, pagopublico, pag
 INSERT INTO participantes (idevento, idpersona, tipo, acompanante) 
 	VALUES (1, 1, 'INV', 'N');
 
-SELECT * FROM participantes;
-DELETE FROM participantes;
-ALTER TABLE participantes AUTO_INCREMENT 1;
 
 SELECT * FROM participantes;
 SELECT * FROM usuarios;

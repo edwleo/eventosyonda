@@ -132,6 +132,10 @@
 			</a>
 		</div>
 
+		<div class="d-grid d-none" id="capa-finalizar">
+			<a href="/" class="btn btn-outline-secondary">Finalizar</a>
+		</div>
+
 	</div>
 </div> <!-- ./row -->
 
@@ -337,6 +341,7 @@
 										$("#step-6").classList.remove("d-none");
 			
 										//Generar y mostrar QR
+										$("#capa-finalizar").classList.remove("d-none")
 										irBajando()
 										showConfetti()
 									}
