@@ -16,8 +16,8 @@
 
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body style="padding-top: 56px">
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
         <img src="/assets/images/motoropark-logo-blanco.png" alt="" style="max-width: 170px;">

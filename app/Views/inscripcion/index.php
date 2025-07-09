@@ -20,9 +20,6 @@
 
 <div class="row">
 
-	<button id="testqr" type="button" class="btn btn-primary">Generar QR</button>
-
-
 	<div class="col-md-6 offset-md-3 mb-3">
 		<div class="alert alert-info">
 			Estimado inversionista, confirme su participación en <strong>5 pasos.</strong>
@@ -131,12 +128,13 @@
 			<hr>
 			<h3>Pulse un clic sobre el QR para guardarlo</h3>
 			<h5>Debe ser presentado el día del evento</h5>
-			<a href="/assets/images/qr.png" download="QR-evento-yonda.png">
-				<img src="/assets/images/qr.png" alt="QR entrada" class="img-fluid" style="cursor: pointer;">
+			<a href="" id="linkqr" download="QR-evento-yonda.png">
+				<!-- /assets/invitaciones/DNI.png -->
+				<img src="" alt="QR entrada" class="img-fluid" id="imgqr" style="cursor: pointer;">
 			</a>
 		</div>
 
-		<div class="d-grid d-none" id="capa-finalizar">
+		<div class="d-grid mt-3 mb-5 d-none" id="capa-finalizar">
 			<a href="/" class="btn btn-outline-secondary">Finalizar</a>
 		</div>
 
@@ -322,13 +320,13 @@
 				top: alturaDocumento,
 				behavior: 'smooth'
 			})
-			//window.scroll(0, alturaDocumento)
 		}
 
 		//Último paso
 		$("#next-5").addEventListener("click", (event) => {
 			event.preventDefault()
 			const codigo = $("#codigo").value
+			const dni = $("#numdoc").value
 
 			if (codigo.length == 5) {
 				validarToken()
@@ -345,12 +343,24 @@
 										$("#step-6").classList.remove("d-none");
 			
 										//Generar y mostrar QR
-										$("#capa-finalizar").classList.remove("d-none")
-										irBajando()
-										showConfetti()
-									}
-								})
+										generaQR()
+											.then(generado => {
+												if (generado){
+													$("#linkqr").setAttribute('href', `/assets/invitaciones/${dni}.png`)
+													$("#imgqr").setAttribute('src', `/assets/invitaciones/${dni}.png`)
+													//Cierre
+													$("#capa-finalizar").classList.remove("d-none")
+													showConfetti()
 
+													//Esperaremos 100 milisegundos para scrollear verticalmente
+													setTimeout(() => {
+														irBajando()
+													}, 100)
+
+												}
+											}) //Fin generaQR	
+										}
+									}) //Fin registrarParticipante									
 						}else{
 							showToast('Token incorrecto, verifique sus SMS', 'ERROR', 2500)
 						}
@@ -363,13 +373,25 @@
 
 		})
 
-		$("#testqr").addEventListener("click", () => {
-			fetch(`/api/qr/generar/45406071`, { method: 'GET' })
+		function generaQR(){
+			const dni = $("#numdoc").value
+			return fetch(`/api/qr/generar/${dni}`, { method: 'GET' })
 				.then(response => response.json())
 				.then(data => {
-					console.log(data)
+					return data.success
 				})
+				.catch(err => {
+					console.log(err)
+					return false
+				})
+		}
+
+		/*
+		$("#testqr").addEventListener("click", () => {
+			generaQR()
+				.then(estado => console.log(estado))
 		})
+		*/
 
 		function showConfetti() {
 			confetti({
