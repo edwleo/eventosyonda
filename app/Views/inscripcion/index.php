@@ -19,6 +19,10 @@
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 
 <div class="row">
+
+	<button id="testqr" type="button" class="btn btn-primary">Generar QR</button>
+
+
 	<div class="col-md-6 offset-md-3 mb-3">
 		<div class="alert alert-info">
 			Estimado inversionista, confirme su participación en <strong>5 pasos.</strong>
@@ -357,6 +361,14 @@
 				$("#codigo").focus()
 			}
 
+		})
+
+		$("#testqr").addEventListener("click", () => {
+			fetch(`/api/qr/generar/45406071`, { method: 'GET' })
+				.then(response => response.json())
+				.then(data => {
+					console.log(data)
+				})
 		})
 
 		function showConfetti() {

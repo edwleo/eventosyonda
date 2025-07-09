@@ -1,0 +1,34 @@
+2025-07-08 23:28:54: 
+Warning: file_put_contents(C:\laragon\www\eventosyonda\app\Helpers\qr\cache\frame_2.dat): Failed to open stream: No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrspec.php on line 568
+
+Warning: mkdir(): No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 154
+
+Warning: file_put_contents(C:\laragon\www\eventosyonda\app\Helpers\qr\cache\mask_0\mask_25_0.dat): Failed to open stream: No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 155
+
+Warning: mkdir(): No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 154
+
+Warning: file_put_contents(C:\laragon\www\eventosyonda\app\Helpers\qr\cache\mask_1\mask_25_1.dat): Failed to open stream: No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 155
+
+Warning: mkdir(): No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 154
+
+Warning: file_put_contents(C:\laragon\www\eventosyonda\app\Helpers\qr\cache\mask_2\mask_25_2.dat): Failed to open stream: No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 155
+
+Warning: mkdir(): No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 154
+
+Warning: file_put_contents(C:\laragon\www\eventosyonda\app\Helpers\qr\cache\mask_3\mask_25_3.dat): Failed to open stream: No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 155
+
+Warning: mkdir(): No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 154
+
+Warning: file_put_contents(C:\laragon\www\eventosyonda\app\Helpers\qr\cache\mask_4\mask_25_4.dat): Failed to open stream: No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 155
+
+Warning: mkdir(): No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 154
+
+Warning: file_put_contents(C:\laragon\www\eventosyonda\app\Helpers\qr\cache\mask_5\mask_25_5.dat): Failed to open stream: No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 155
+
+Warning: mkdir(): No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 154
+
+Warning: file_put_contents(C:\laragon\www\eventosyonda\app\Helpers\qr\cache\mask_6\mask_25_6.dat): Failed to open stream: No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 155
+
+Warning: mkdir(): No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 154
+
+Warning: file_put_contents(C:\laragon\www\eventosyonda\app\Helpers\qr\cache\mask_7\mask_25_7.dat): Failed to open stream: No such file or directory in C:\laragon\www\eventosyonda\app\Helpers\qr\qrmask.php on line 155
