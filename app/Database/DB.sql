@@ -93,6 +93,9 @@ INSERT INTO participantes (idevento, idpersona, tipo, acompanante)
 	VALUES (1, 1, 'INV', 'N');
 
 
+SELECT * FROM personas WHERE inversionista = 'N';
+
+
 SELECT * FROM participantes;
 SELECT * FROM usuarios;
 SELECT * FROM personas WHERE numdoc = '45406071';
