@@ -33,5 +33,19 @@ class ParticipanteController extends Controller
     echo json_encode(['success' => $status]);
   }
 
+  public function buscarParticipante(string $dni){
+    header('Content-Type: application/json');
+    $participante = $this->participanteModel->buscarParticipante($dni);
+
+    if ($participante){
+      echo json_encode(['success' => true, 'participante' => $participante]);
+    }else{
+      http_response_code(404);
+      echo json_encode(['success' => false, 'message' => 'No encontramos al participante']);
+    }
+
+    exit();
+  }
+
 
 }

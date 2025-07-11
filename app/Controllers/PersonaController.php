@@ -33,13 +33,22 @@ class PersonaController extends Controller
 
   public function generateToken(int $idpersona, string $telefono){
     header('Content-Type: application/json');
-    $tokenRandom = rand(11111,99999);
+    
+    //El valor aleatorio será cambiado por una constante para realizar
+    //la inscripoción de manera rápida (ya se habían registrado por un medio alternativo)
+    
+    //$tokenRandom = rand(11111,99999);
+    $tokenRandom = 11111;
+
     $result = $this->personaModel->updateToken($idpersona, $tokenRandom);
 
     //Se actualizó el token en la BD
     if ($result > 0){
+      //Ya no se enviará el SMS porque ya fue generada la invitación por un medio alternativo
       //Se le envía el SMS al teléfono
-      $enviado = $this->sms->sendSMS($telefono, 'YONDA MOTORPARK - Token inscripcion: ' . $tokenRandom);
+      
+      //$enviado = $this->sms->sendSMS($telefono, 'YONDA MOTORPARK - Token inscripcion: ' . $tokenRandom);
+      $enviado = true;
 
       if ($enviado){
         echo json_encode(["success" => true, "message" => "Token generado y enviado correctamente"]);

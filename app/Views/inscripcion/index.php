@@ -336,6 +336,7 @@
 							//Ahora vamos a registrar al participante
 							registrarParticipante()
 								.then(registrado => {
+									console.log(registrado)
 									if (registrado){
 										$("#codigo").setAttribute("disabled", true)
 										$("#check-5").classList.remove("d-none");

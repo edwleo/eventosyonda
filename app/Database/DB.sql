@@ -97,6 +97,16 @@ SELECT * FROM personas WHERE inversionista = 'N';
 
 
 SELECT * FROM participantes;
+
+SELECT
+	PAR.idparticipante,
+	PER.apellidos,
+	PER.nombres,
+	PER.numdoc
+	FROM participantes PAR
+	INNER JOIN personas PER ON PER.idpersona = PAR.idpersona
+	WHERE PER.tipodoc = 'DNI' AND PAR.idevento = 1;
+
 SELECT * FROM usuarios;
 SELECT * FROM personas WHERE numdoc = '45406071';
 SELECT * FROM personas ORDER BY idpersona DESC;

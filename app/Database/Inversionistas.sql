@@ -3,6 +3,8 @@ USE eventosyonda;
 -- DELETE FROM personas;
 -- ALTER TABLE personas AUTO_INCREMENT 1;
 
+SELECT * FROM personas;
+
 -- INSERCIÓN DE DATOS DE PERSONAS (INVERSIONISTAS)
 INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
 ('CASTRO  COLQUE', 'FANNY ARLINE', 'DNI', '10635014', '975232956', 'S'),
