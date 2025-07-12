@@ -96,13 +96,16 @@ INSERT INTO participantes (idevento, idpersona, tipo, acompanante)
 SELECT * FROM personas WHERE inversionista = 'N';
 
 
+DELETE FROM participantes;
+ALTER TABLE participantes AUTO_INCREMENT 1;
 SELECT * FROM participantes;
 
 SELECT
 	PAR.idparticipante,
 	PER.apellidos,
 	PER.nombres,
-	PER.numdoc
+	PER.numdoc,
+	PAR.acompanante
 	FROM participantes PAR
 	INNER JOIN personas PER ON PER.idpersona = PAR.idpersona
 	WHERE PER.tipodoc = 'DNI' AND PAR.idevento = 1;

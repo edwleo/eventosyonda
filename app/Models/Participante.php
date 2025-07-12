@@ -50,7 +50,8 @@ class Participante
       PAR.idparticipante,
       PER.apellidos,
       PER.nombres,
-      PER.numdoc
+      PER.numdoc,
+      PAR.acompanante
       FROM participantes PAR
       INNER JOIN personas PER ON PER.idpersona = PAR.idpersona
       WHERE PER.tipodoc = 'DNI' AND PER.numdoc = :dni AND PAR.idevento = 1;
