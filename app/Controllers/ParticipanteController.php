@@ -34,14 +34,30 @@ class ParticipanteController extends Controller
   }
 
   public function buscarParticipante(string $dni){
+
+    //Este proceso se puede utilizar en:
+    //Caso 1: Se busca utilizando DNI (consultar inscripción)
+    //Caso 2: Se busca utilizando QR (registrar asistencia)
+
+    $dniBuscar = $dni;
+
+    //Solo cuando nos envían 16 dígitos, debemos decodificar el DNI oculto en el hash del QR
+    if (strlen($dni) == 16){
+      $dniBuscar = "";
+      for ($i = 15; $i >= 0; $i-=2){
+        $dniBuscar .= substr($dni, $i, 1);
+      }
+    }
+
     header('Content-Type: application/json');
-    $participante = $this->participanteModel->buscarParticipante($dni);
+    $participante = $this->participanteModel->buscarParticipante($dniBuscar);
 
     if ($participante){
       echo json_encode(['success' => true, 'participante' => $participante]);
     }else{
       http_response_code(404);
-      echo json_encode(['success' => false, 'message' => 'No encontramos al participante']);
+      //echo json_encode(['success' => false, 'message' => 'No encontramos al participante']);
+      echo json_encode(['success' => false, 'message' => $dniBuscar]);
     }
 
     exit();

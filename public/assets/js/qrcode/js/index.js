@@ -58,19 +58,57 @@ const activarSonido = () => {
   audio.play();
 }
 
+/*
+Se abordarán varias situaciones
+1. El QR leído debe tener la siguiente estructura: Z4$1X0H5M3Z6W0Z1 (16 caracteres) para consumir la API
+2.  Escenario 1: No se encontró al participante
+    Escenario 2: Se encontró pero ya marcó asistencia
+    Escenario 3: Se encontró pero no marcó asistencia
+*/
+
+function buscarParticipante(codigo){
+  return fetch(`/api/participante/buscar/${codigo}`, {method: 'GET'})
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => { console.error(err) })
+}
+
+function registrarAsistencia(codigoQR){
+  return fetch(``, {method: 'GET'})
+    .then(response => response.json())
+    .then(data => {
+      return data.success
+    })
+    .catch(err => {
+      return false
+      console.error(err)
+    })
+}
+
 //callback cuando termina de leer el codigo QR
 qrcode.callback = (respuesta) => {
   if (respuesta) {
-    //console.log(respuesta);
-    Swal.fire(respuesta)
+    console.log(respuesta);
+    buscarParticipante(respuesta);
+    //Swal.fire(respuesta)
     activarSonido();
     //encenderCamara();    
     cerrarCamara();    
-
   }
 };
 
-//encenderCamara();
+//Visualización de los botones
+document.querySelector("#detener").addEventListener("click", () => {
+  //document.querySelector("#detener").classList.add("d-none")
+  //document.querySelector("#iniciar").classList.remove("d-none")
+})
+
+document.querySelector("#iniciar").addEventListener("click", () => {
+  //document.querySelector("#iniciar").classList.add("d-none")
+  //document.querySelector("#detener").classList.remove("d-none")
+})
 
 //evento para mostrar la camara sin el boton 
 window.addEventListener('load', (e) => {

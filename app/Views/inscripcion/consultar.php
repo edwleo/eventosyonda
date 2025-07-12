@@ -11,7 +11,7 @@
       <ol class="mb-0">
         <li>Verifique su inscripción utilizando su número de DNI</li>
         <li>Descargue el código QR</li>
-        <li>Presente el código al ingreso al evento</li>
+        <li>Presente el código al ingreso del evento</li>
       </ol>
     </div>
   </div> 
@@ -23,7 +23,7 @@
     <div class="col-md-3">
       <div class="input-group">
         <div class="form-floating">
-          <input type="tel" id="dni" pattern="[0-9]*" title="Solo se permiten números" class="form-control text-center" maxlength="8" minlength="8" autofocus required>
+          <input type="tel" id="dni" pattern="[0-9]*" title="Solo se permiten números" class="form-control form-control-lg text-center" maxlength="8" minlength="8" autofocus required>
           <label for="">DNI</label>
         </div>
         <button class="btn btn-primary" type="submit">Buscar</button>
