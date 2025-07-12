@@ -63,7 +63,7 @@
         fetch(`/api/participante/buscar/${dni}`, { method: 'GET' })
           .then(response => response.json())
           .then(data => {
-            console.log(data)
+            //console.log(data)
             if (data.success) {
               document.querySelector("#capa-resultado").classList.remove("d-none")
               document.querySelector("#inversionista").value = `${data.participante.apellidos} ${data.participante.nombres}`

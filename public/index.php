@@ -24,6 +24,7 @@ require_once APP_ROOT . '/app/Router/Home.router.php';
 require_once APP_ROOT . '/app/Router/Inscripcion.router.php';
 require_once APP_ROOT . '/app/Router/Persona.router.php';
 require_once APP_ROOT . '/app/Router/Participante.router.php';
+require_once APP_ROOT . '/app/Router/Asistencia.router.php';
 require_once APP_ROOT . '/app/Router/QR.router.php';
 
 // Un controlador básico para la página de inicio
