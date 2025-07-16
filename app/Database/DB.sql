@@ -154,16 +154,16 @@ INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionis
 	('CHAVEZ PEREZ', 'ZINTIA', 'DNI', '71012648', '999999999', 'S');
 	
 INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
-	('', '', 'DNI', '', '999999999', 'S');
+	('CAYO ARELLANO', 'PORFIRIO', 'DNI', '23898623', '999999999', 'S');
 
 INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
-	('', '', 'DNI', '', '999999999', 'S');
+	('BEJAR GALINDO', 'HERBERT', 'DNI', '23975358', '999999999', 'S');
 
 INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
-	('', '', 'DNI', '', '999999999', 'S');
+	('NIXON SOTO', 'ANTHONY', 'DNI', '73223007', '999999999', 'S');
 
 INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
-	('', '', 'DNI', '', '999999999', 'S');
+	('SANCHEZ CANCHARI', 'ROSA MARÍA', 'DNI', '09881773', '999999999', 'S');
 
 INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
 	('', '', 'DNI', '', '999999999', 'S');
