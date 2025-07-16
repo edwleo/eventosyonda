@@ -1,20 +1,8 @@
 <?php include __DIR__ . '/../layout/header.php'; ?>
 
 <div class="row">
-	<div class="col-md-6">
-		<img src="/assets/images/banner.jpg" alt="" class="img-fluid">
-	</div>
-	<div class="col-md-6">
-		<h5>Información</h5>
-		<p>
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam voluptatem placeat alias, quaerat illo, explicabo
-			corrupti ratione at nesciunt ea asperiores iusto ullam cumque sed inventore vitae tempore? Esse, excepturi!
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam voluptatem placeat alias, quaerat illo, explicabo
-			corrupti ratione at nesciunt ea asperiores iusto ullam cumque sed inventore vitae tempore? Esse, excepturi!
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam voluptatem placeat alias, quaerat illo, explicabo
-			corrupti ratione at nesciunt ea asperiores iusto ullam cumque sed inventore vitae tempore? Esse, excepturi!
-			corrupti ratione at nesciunt ea asperiores iusto ullam cumque sed inventore vitae tempore? Esse, excepturi!
-		</p>
+	<div class="col-md-12">
+		<img src="/assets/images/banner-vs.jpg" class="img-fluid" alt="">
 	</div>
 </div>
 

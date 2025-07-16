@@ -128,4 +128,51 @@ SELECT * FROM personas WHERE numdoc = '45406071';
 SELECT * FROM personas ORDER BY idpersona DESC;
 SELECT * FROM personas WHERE idpersona = 748 AND token = '35845';
 SELECT idpersona, apellidos, nombres, telefono FROM personas WHERE inversionista = 'S' AND numdoc = '';
+
+DELETE FROM participantes;
+ALTER TABLE participantes AUTO_INCREMENT 1;
+SELECT * FROM participantes;
+
+
+-- nuevas personas
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('TINEO ROCA', 'CARLOS', 'DNI', '45862435', '999999999', 'S');
 	
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('VASQUEZ CABANILLA', 'GLENN', 'DNI', '48291707', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('CACERES MUÑOZ', 'GLORIA MARIA', 'DNI', '41226351', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('ROBLES CHISHOLM', 'CARMEN', 'DNI', '07805901', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('MAUTINO PISANGO', 'RENATO', 'DNI', '74733479', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('CHAVEZ PEREZ', 'ZINTIA', 'DNI', '71012648', '999999999', 'S');
+	
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('', '', 'DNI', '', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('', '', 'DNI', '', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('', '', 'DNI', '', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('', '', 'DNI', '', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('', '', 'DNI', '', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('', '', 'DNI', '', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('', '', 'DNI', '', '999999999', 'S');
+
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+	('', '', 'DNI', '', '999999999', 'S');

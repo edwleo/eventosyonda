@@ -66,8 +66,10 @@
             //console.log(data)
             if (data.success) {
               document.querySelector("#capa-resultado").classList.remove("d-none")
-              document.querySelector("#inversionista").value = `${data.participante.apellidos} ${data.participante.nombres}`
+              document.querySelector("#inversionista").value = `${data.participante.apellidos}, ${data.participante.nombres}`
               document.querySelector("#lnkqr-1").setAttribute("href", `/assets/invitaciones/${data.participante.numdoc}.png`)
+              document.querySelector("#lnkqr-1").setAttribute("download", document.querySelector("#inversionista").value)
+              document.querySelector("#lnkqr-2").setAttribute("download", document.querySelector("#inversionista").value)
               document.querySelector("#lnkqr-2").setAttribute("href", `/assets/invitaciones/${data.participante.numdoc}.png`)
               document.querySelector("#img-qr").setAttribute("src", `/assets/invitaciones/${data.participante.numdoc}.png`)
             } else {

@@ -348,6 +348,7 @@
 											.then(generado => {
 												if (generado){
 													$("#linkqr").setAttribute('href', `/assets/invitaciones/${dni}.png`)
+													$("#linkqr").setAttribute('download', $('#inversionista').value)
 													$("#imgqr").setAttribute('src', `/assets/invitaciones/${dni}.png`)
 													//Cierre
 													$("#capa-finalizar").classList.remove("d-none")
