@@ -10,4 +10,5 @@ class AsistenciaController extends Controller
   {
     $this->view('asistencia.index');
   }
+
 }

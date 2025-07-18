@@ -100,6 +100,7 @@ DELETE FROM participantes;
 ALTER TABLE participantes AUTO_INCREMENT 1;
 SELECT * FROM participantes;
 
+SELECT * FROM eventos;
 
 SELECT
 	PAR.idparticipante,

@@ -63,5 +63,16 @@ class ParticipanteController extends Controller
     exit();
   }
 
+  public function registrarAsistencia($idparticipante){
+    header('Content-Type: application/json');
+    $result = $this->participanteModel->registrarAsistencia($idparticipante);
+
+    if ($result){
+      echo json_encode(['success' => true, 'message' => 'Correcto']);
+    }else{
+      echo json_encode(['success' => false, 'message' => 'Error']);
+    }
+  }
+
 
 }

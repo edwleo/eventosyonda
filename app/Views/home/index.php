@@ -8,7 +8,7 @@
 
 <div class="row mt-4">
 	<div class="col-md-4 offset-md-4 text-center">
-		<a href="/inscripcion" class="btn btn-lg btn-primary"><i class="fa-solid fa-user-plus"></i> Inscribirme</a>
+		<!-- <a href="/inscripcion" class="btn btn-lg btn-primary"><i class="fa-solid fa-user-plus"></i> Inscribirme</a> -->
 		<a href="/consultar" class="btn btn-lg btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Consultar inscripción</a>
 	</div>
 </div>

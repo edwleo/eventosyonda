@@ -68,4 +68,16 @@ class Participante
     }
   }
 
+  public function registrarAsistencia(int $idparticipante):bool{
+    $query = "UPDATE participantes SET horaasistencia = DATE_ADD(NOW(), INTERVAL -5 HOUR) WHERE idparticipante = :idparticipante";
+    try{
+      $stmt = $this->db->prepare($query);
+      $stmt->bindParam(':idparticipante', $idparticipante, PDO::PARAM_INT);
+      return $stmt->execute();
+    }
+    catch(Exception $e){
+      return false;
+    }
+  }
+
 }

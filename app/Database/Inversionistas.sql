@@ -1,8 +1,29 @@
 USE eventosyonda;
 
+INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, telefono, inversionista) VALUES
+('', '', 'DNI', '', '999999999', 'S');
+
+-- Quitar -5 horas para sincronizar relojes
+-- SELECT DATE_ADD(NOW(), INTERVAL -5 HOUR);
+
 -- DELETE FROM personas;
 -- ALTER TABLE personas AUTO_INCREMENT 1;
 
+SELECT
+      PAR.idparticipante,
+      PER.apellidos,
+      PER.nombres,
+      PER.numdoc,
+      PAR.acompanante,
+      PAR.horaasistencia
+      FROM participantes PAR
+      INNER JOIN personas PER ON PER.idpersona = PAR.idpersona
+      WHERE PER.tipodoc = 'DNI' AND PER.numdoc = '10635014' AND PAR.idevento = 1;
+
+UPDATE participantes SET horaasistencia = DATE_ADD(NOW(), INTERVAL -5 HOUR) WHERE idparticipante = 1;
+
+UPDATE participantes SET horaasistencia = NULL;
+SELECT * FROM participantes;
 SELECT * FROM personas;
 
 -- INSERCIÓN DE DATOS DE PERSONAS (INVERSIONISTAS)

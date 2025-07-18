@@ -39,7 +39,7 @@
 					</span>
 					<select name="tipodoc" id="tipodoc" class="form-select form-select-lg">
 						<option value="">Seleccione</option>
-						<option value="DNI">DNI</option>
+						<option value="DNI" selected>DNI</option>
 						<option value="RUC">RUC</option>
 					</select>
 				</div>
