@@ -68,14 +68,43 @@ class Participante
     }
   }
 
-  public function registrarAsistencia(int $idparticipante):bool{
+  public function listarParticipantes(string $tipo): ?array
+  {
+    $query = "
+    SELECT
+      PAR.idparticipante,
+      PER.apellidos,
+      PER.nombres,
+      PER.numdoc,
+      PAR.acompanante,
+      PAR.horaasistencia
+      FROM participantes PAR
+      INNER JOIN personas PER ON PER.idpersona = PAR.idpersona 
+    ";
+
+    if ($tipo == 'AST'){
+      $query .= " WHERE PAR.horaasistencia IS NOT NULL AND PAR.idevento = 1";
+    }else if($tipo == 'PND'){
+      $query .= " WHERE PAR.horaasistencia IS NULL AND PAR.idevento = 1";
+    }
+
+    try {
+      $stmt = $this->db->prepare($query);
+      $stmt->execute();
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+      return null;
+    }
+  }
+
+  public function registrarAsistencia(int $idparticipante): bool
+  {
     $query = "UPDATE participantes SET horaasistencia = DATE_ADD(NOW(), INTERVAL -5 HOUR) WHERE idparticipante = :idparticipante";
-    try{
+    try {
       $stmt = $this->db->prepare($query);
       $stmt->bindParam(':idparticipante', $idparticipante, PDO::PARAM_INT);
       return $stmt->execute();
-    }
-    catch(Exception $e){
+    } catch (Exception $e) {
       return false;
     }
   }

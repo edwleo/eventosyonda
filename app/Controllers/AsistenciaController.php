@@ -11,4 +11,9 @@ class AsistenciaController extends Controller
     $this->view('asistencia.index');
   }
 
+  public function lista(): void
+  {
+    $this->view('asistencia.lista');
+  }
+
 }

@@ -72,6 +72,21 @@ class ParticipanteController extends Controller
     }else{
       echo json_encode(['success' => false, 'message' => 'Error']);
     }
+
+    exit();
+  }
+
+  public function listarParticipantes($tipo){
+    header('Content-Type: application/json');
+    $result = $this->participanteModel->listarParticipantes($tipo);
+
+    if ($result){
+      echo json_encode(['success' => true, 'rows' => $result]);
+    }else{
+      echo json_encode(['success' => false, 'rows' => $result]);
+    }
+
+    exit();
   }
 
 

@@ -15,7 +15,8 @@
     <div class="row my-3">
       <div class="d-grid">
         <button class="btn btn-success rounded-0 mb-2" id="encender"><i class="fa-solid fa-camera"></i> Iniciar lectura</button>
-        <button class="btn btn-danger rounded-0" id="cerrar"><i class="fa-solid fa-camera"></i> Detener lectura</button>
+        <button class="btn btn-danger rounded-0 mb-2" id="cerrar"><i class="fa-solid fa-camera"></i> Detener lectura</button>
+        <a href="https://eventos.yondaperu.com/asistencia/lista" class="btn btn-info rounded-0 mb-2">Lista asistentes</a>
       </div>
     </div>
   </div>
@@ -51,6 +52,6 @@
 <!-- Fin Zona modales -->
 
 <audio id="audioScaner" src="/assets/js/qrcode/sonido.mp3"></audio>
-<script src="/assets/js/qrcode/js/index.js"></script>
+<script src="/assets/js/qrcode/js/index.js?v=1.0.1"></script> <!-- Forzar lectura -->
 
 <?php include __DIR__ . '/../layout/footer.php'; ?>

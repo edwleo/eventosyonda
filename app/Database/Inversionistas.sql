@@ -18,7 +18,7 @@ SELECT
       PAR.horaasistencia
       FROM participantes PAR
       INNER JOIN personas PER ON PER.idpersona = PAR.idpersona
-      WHERE PER.tipodoc = 'DNI' AND PER.numdoc = '10635014' AND PAR.idevento = 1;
+      WHERE PAR.horaasistencia IS NULL AND PAR.idevento = 1;
 
 UPDATE participantes SET horaasistencia = DATE_ADD(NOW(), INTERVAL -5 HOUR) WHERE idparticipante = 1;
 
